@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Set character encoding and responsive viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Math Magic</title>
+    <!-- Link external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link Google Fonts for Caveat and Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="setup-phase">
+    <!-- Main game container -->
+    <div class="game-container">
+        <!-- Skin selector buttons -->
+        <div class="skin-selector">
+            <div class="skin-btn active" data-skin="normal" tabindex="0">A</div>
+            <div class="skin-btn" data-skin="neon" tabindex="0">N</div>
+            <div class="skin-btn" data-skin="handwritten" tabindex="0">H</div>
+            <div class="skin-btn" data-skin="rounded" tabindex="0">R</div>
+            <div class="skin-btn" data-skin="space" tabindex="0">S</div>
+        </div>
+        
+        <!-- Game title -->
+        <h1>Simple Math Magic</h1>
+        
+        <!-- Setup section for game options -->
+        <div id="setup-section" class="setup-section">
+            <div class="form-row">
+                <!-- Number length dropdown -->
+                <div class="form-group">
+                    <label for="numberLength">Number Length</label>
+                    <select id="numberLength" name="numberLength">
+                        <option value="4" selected>4 digits</option>
+                        <option value="6">6 digits</option>
+                        <option value="8">8 digits</option>
+                    </select>
+                </div>
+                <!-- Rounds dropdown -->
+                <div class="form-group">
+                    <label for="rounds">Rounds</label>
+                    <select id="rounds" name="rounds">
+                        <option value="2" selected>2 rounds</option>
+                        <option value="3">3 rounds</option>
+                        <option value="4">4 rounds</option>
+                        <option value="5">5 rounds</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Initial number input -->
+            <div class="form-group">
+                <label for="initialNumber">Initial Number</label>
+                <input type="text" id="initialNumber" placeholder="Enter a 4-digit number">
+                <div id="initialNumberError" class="error" role="alert"></div>
+            </div>
+            
+            <!-- Buttons for starting game, showing tutorial, and toggling sound -->
+            <button id="startGame">Start Game</button>
+            <button id="showTutorial" style="background-color: #6c757d;">How to Play</button>
+            <button id="soundToggle">Mute</button>
+        </div>
+        
+        <!-- Game area for gameplay -->
+        <div id="game-area" class="game-area">
+            <!-- Round information -->
+            <div class="round-info" aria-live="polite">
+                Round <span id="currentRound">1</span> of <span id="totalRounds">2</span>
+            </div>
+            
+            <!-- Display for numbers -->
+            <div class="numbers-box">
+                <div class="number-row">
+                    <div class="number-label magic-label">Magic Guess:</div>
+                    <div id="displayMagicGuess" class="number-value magic-guess normal"></div>
+                </div>
+                <div class="number-row">
+                    <div class="number-label user-label">Initial Number:</div>
+                    <div id="displayInitialNumber" class="number-value normal"></div>
+                </div>
+                <!-- Container for round numbers -->
+                <div id="roundsContainer"></div>
+            </div>
+            
+            <!-- Input for user number during rounds -->
+            <div class="current-input">
+                <label for="userNumber">Your number (Round <span id="roundLabel">1</span>):</label>
+                <input type="text" id="userNumber" placeholder="Enter a 4-digit number">
+                <div id="userNumberError" class="error" role="alert"></div>
+                <button id="submitNumber">Submit</button>
+            </div>
+            
+            <!-- Result section after game completion -->
+            <div id="result-section" style="display: none;">
+                <div class="numbers-box" style="background-color: #e8f4fd;">
+                    <div class="number-row">
+                        <div class="number-label sum-label">Final Sum:</div>
+                        <div id="finalSum" class="number-value normal"></div>
+                    </div>
+                    <div class="number-row">
+                        <div class="number-label magic-label">Magic Guess:</div>
+                        <div id="finalMagicGuess" class="number-value magic-guess normal"></div>
+                    </div>
+                </div>
+                <button id="restartGame">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial modal -->
+    <div class="tutorial-modal" id="tutorialModal">
+        <div class="tutorial-content">
+            <h2>How to Play Math Magic</h2>
+            <div id="tutorialStep1">
+                <p><strong>1. Setup:</strong> Choose your number length (4, 6, or 8 digits) and number of rounds (2, 3, 4, or 5).</p>
+                <p><strong>2. Initial Number:</strong> Enter any number with the chosen length (no leading zero).</p>
+                <div class="tutorial-nav">
+                    <button id="nextTutorial">Next</button>
+                </div>
+            </div>
+            <div id="tutorialStep2" style="display: none;">
+                <p><strong>3. Gameplay:</strong> In each round, enter a number. The computer will reply with (max number - your number).</p>
+                <p><strong>4. Magic Guess:</strong> After all rounds, the sum of all numbers will match our initial magic guess!</p>
+                <div class="tutorial-nav">
+                    <button id="prevTutorial">Back</button>
+                    <button id="closeTutorial">Got It!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
